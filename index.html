@@ -1,140 +1,148 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة المطور - إدخال الأسعار والصرف</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            font-size: 150%;
-        }
-        input[type="number"], input[type="text"] {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            text-align: center;
-            font-weight: bold;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 20px;
-            width: 100%;
-            font-weight: bolder;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        h1 {
-            margin-top: 30px;
-            color: #0056b3;
-        }
-        #update-time {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            padding: 10px;
-            border: 1px solid #bee5eb;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>صفحة المطور - إدخال الأسعار</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 150%;
+    }
+    input[type="number"] {
+      width: calc(100% - 22px);
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 20px;
+      width: 100%;
+      font-weight: bolder;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #update-time {
+      background-color: #d1ecf1;
+      color: #0c5460;
+      padding: 10px;
+      border: 1px solid #bee5eb;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
 
-        <div id="update-time">وقت الإدخال: جاري التحميل...</div>
+<div class="container">
+  <div id="update-time">وقت الإدخال: جاري التحميل...</div>
 
-        <h1>أسعار الصرف في حضرموت</h1>
+  <h1>إدخال أسعار الصرف</h1>
 
-        <label for="exchange_saudi">ريال سعودي <img src="https://flagcdn.com/160x120/sa.png" style="width: 25px;"></label>
-        <input type="number" id="exchange_saudi" placeholder="سعر الصرف مقابل الريال السعودي">
+  <label for="sar">ريال سعودي</label>
+  <input type="number" id="sar" placeholder="سعر الريال السعودي">
 
-        <label for="exchange_usd">دولار أمريكي <img src="https://flagcdn.com/160x120/us.png" style="width: 25px;"></label>
-        <input type="number" id="exchange_usd" placeholder="سعر الصرف مقابل الدولار الأمريكي">
+  <label for="usd">دولار أمريكي</label>
+  <input type="number" id="usd" placeholder="سعر الدولار الأمريكي">
 
-        <label for="exchange_oman">ريال عماني <img src="https://flagcdn.com/160x120/om.png" style="width: 25px;"></label>
-        <input type="number" id="exchange_oman" placeholder="سعر الصرف مقابل الريال العماني">
+  <label for="omr">ريال عماني</label>
+  <input type="number" id="omr" placeholder="سعر الريال العماني">
 
-        <label for="exchange_egypt">جنيه مصري <img src="https://flagcdn.com/160x120/eg.png" style="width: 25px;"></label>
-        <input type="number" id="exchange_egypt" placeholder="سعر الصرف مقابل الجنيه المصري">
+  <label for="egp">جنيه مصري</label>
+  <input type="number" id="egp" placeholder="سعر الجنيه المصري">
 
-        <label for="exchange_kuwait">دينار كويتي <img src="https://flagcdn.com/160x120/kw.png" style="width: 25px;"></label>
-        <input type="number" id="exchange_kuwait" placeholder="سعر الصرف مقابل الدينار الكويتي">
+  <label for="kwd">دينار كويتي</label>
+  <input type="number" id="kwd" placeholder="سعر الدينار الكويتي">
 
-        <label for="exchange_bahrain">دينار بحريني <img src="https://flagcdn.com/160x120/bh.png" style="width: 25px;"></label>
-        <input type="number" id="exchange_bahrain" placeholder="سعر الصرف مقابل الدينار البحريني">
+  <label for="bhd">دينار بحريني</label>
+  <input type="number" id="bhd" placeholder="سعر الدينار البحريني">
 
-        <label for="exchange_qatar">ريال قطري <img src="https://flagcdn.com/160x120/qa.png" style="width: 25px;"></label>
-        <input type="number" id="exchange_qatar" placeholder="سعر الصرف مقابل الريال القطري">
+  <label for="qar">ريال قطري</label>
+  <input type="number" id="qar" placeholder="سعر الريال القطري">
 
-        <button onclick="transferData()">عرض الأسعار والصرف</button>
-    </div>
+  <button id="saveBtn">حفظ الأسعار</button>
+</div>
 
-    <script>
-        function transferData() {
-            const exchangeSaudi = document.getElementById('exchange_saudi').value;
-            const exchangeUsd = document.getElementById('exchange_usd').value;
-            const exchangeOman = document.getElementById('exchange_oman').value;
-            const exchangeEgypt = document.getElementById('exchange_egypt').value;
-            const exchangeKuwait = document.getElementById('exchange_kuwait').value;
-            const exchangeBahrain = document.getElementById('exchange_bahrain').value;
-            const exchangeQatar = document.getElementById('exchange_qatar').value;
+<script>
+  // تحديث وقت الإدخال
+  const updateTimeDiv = document.getElementById('update-time');
+  const now = new Date();
+  updateTimeDiv.textContent = 'وقت الإدخال: ' + now.toLocaleString('ar-EG', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  });
+</script>
 
-            // بناء الرابط الكامل
-            const params = new URLSearchParams();
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
-            if (exchangeSaudi) params.append('exchange_saudi', exchangeSaudi);
-            if (exchangeUsd) params.append('exchange_usd', exchangeUsd);
-            if (exchangeOman) params.append('exchange_oman', exchangeOman);
-            if (exchangeEgypt) params.append('exchange_egypt', exchangeEgypt);
-            if (exchangeKuwait) params.append('exchange_kuwait', exchangeKuwait);
-            if (exchangeBahrain) params.append('exchange_bahrain', exchangeBahrain);
-            if (exchangeQatar) params.append('exchange_qatar', exchangeQatar);
+  const firebaseConfig = {
+    apiKey: "AIzaSyDQ9nB0j2kuNr7xvIIA_qFpxpN62QZTKjo",
+    authDomain: "rate-5fe74.firebaseapp.com",
+    databaseURL: "https://rate-5fe74-default-rtdb.firebaseio.com",
+    projectId: "rate-5fe74",
+    storageBucket: "rate-5fe74.appspot.com",
+    messagingSenderId: "663913162831",
+    appId: "1:663913162831:web:a8ecea5315d8828ce5623a"
+  };
 
-            // اسم الملف الآخر (صفحة العرض)
-            const url = 'https://assil775458250.github.io/rate-customer/?' + params.toString();
-            window.location.href = url;
-        }
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-        // وقت الإدخال
-        const updateTimeDiv = document.getElementById('update-time');
-        const now = new Date();
-        const options = {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-        };
-        updateTimeDiv.textContent = 'وقت الإدخال: ' + now.toLocaleString('ar-EG', options);
-    </script>
+  document.getElementById('saveBtn').addEventListener('click', () => {
+    const rates = {
+      sar: document.getElementById('sar').value,
+      usd: document.getElementById('usd').value,
+      omr: document.getElementById('omr').value,
+      egp: document.getElementById('egp').value,
+      kwd: document.getElementById('kwd').value,
+      bhd: document.getElementById('bhd').value,
+      qar: document.getElementById('qar').value,
+      updatedAt: new Date().toISOString()
+    };
+
+    set(ref(db, 'rates/'), rates).then(() => {
+      alert('تم حفظ الأسعار بنجاح ✅');
+    }).catch((error) => {
+      alert('حدث خطأ أثناء الحفظ ❌: ' + error.message);
+    });
+  });
+</script>
+
 </body>
 </html>
