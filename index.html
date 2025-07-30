@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title> تحديث أسعار الصرف في حضرموت</title>
+  <title>تحديث أسعار الصرف في حضرموت</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -19,21 +19,20 @@
       padding: 15px;
       border-radius: 8px;
       box-shadow: 0 0 5px #ccc;
-      width: 85%;
-    
-      
+      width: 95%;
     }
     label {
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
-      font-size: 140%;
+      font-size: 160%;
     }
     input {
-      width: 20%;
+      width: 40%;
       padding: 8px;
       margin: 5px 1%;
       text-align: center;
+      font-size: 160%;
     }
     button {
       padding: 10px 20px;
@@ -46,78 +45,68 @@
     button:hover {
       background: #218838;
     }
-    h1
-    {
-        color: blue;
+    h1 {
+      color: blue;
+      font-size: 280%;
     }
-   #saveBtn
-   {
-    font-size: 120%;
-    font-weight: 800;
-   } 
-   .sell
-   {
-    color: #218838;
-    font-weight: bolder;
-   }
-   .buy
-   {
-    color: red;
-    font-weight: bolder;
-   }
+    #saveBtn {
+      font-size: 120%;
+      font-weight: 800;
+    }
+    .sell {
+      color: #218838;
+      font-weight: bolder;
+    }
+    .buy {
+      color: red;
+      font-weight: bolder;
+    }
   </style>
 </head>
 <body>
 
-  <h1>تحديث أسعار الصرف في حضرموت</h1>
+  <h1>تحديث أسعار الصرف في حضرموت وعدن</h1>
 
   <div class="currency-group">
     <label>ريال سعودي</label>
-
     <input type="number" id="sar-sell" class="buy" placeholder="سعر البيع">
-        <input type="number" id="sar-buy" class="sell" placeholder="سعر الشراء">
+    <input type="number" id="sar-buy" class="sell" placeholder="سعر الشراء">
   </div>
 
   <div class="currency-group">
     <label>دولار أمريكي</label>
-    
-    <input type="number" id="usd-sell"class="buy" placeholder="سعر البيع">
-    <input type="number" id="usd-buy"class="sell" placeholder="سعر الشراء">
+    <input type="number" id="usd-sell" class="buy" placeholder="سعر البيع">
+    <input type="number" id="usd-buy" class="sell" placeholder="سعر الشراء">
   </div>
 
   <div class="currency-group">
     <label>ريال عماني</label>
-    
-    <input type="number" id="omr-sell"class="buy" placeholder="سعر البيع">
-    <input type="number" id="omr-buy" class="sell"placeholder="سعر الشراء">
+    <input type="number" id="omr-sell" class="buy" placeholder="سعر البيع">
+    <input type="number" id="omr-buy" class="sell" placeholder="سعر الشراء">
   </div>
 
   <div class="currency-group">
     <label>جنيه مصري</label>
-    
-    <input type="number" id="egp-sell"class="buy" placeholder="سعر البيع">
-    <input type="number" id="egp-buy"class="sell" placeholder="سعر الشراء">
+    <input type="number" id="egp-sell" class="buy" placeholder="سعر البيع">
+    <input type="number" id="egp-buy" class="sell" placeholder="سعر الشراء">
   </div>
 
   <div class="currency-group">
     <label>دينار كويتي</label>
-    
-    <input type="number" id="kwd-sell"class="buy" placeholder="سعر البيع">
-    <input type="number" id="kwd-buy"class="sell" placeholder="سعر الشراء">
+    <input type="number" id="kwd-sell" class="buy" placeholder="سعر البيع">
+    <input type="number" id="kwd-buy" class="sell" placeholder="سعر الشراء">
   </div>
 
   <div class="currency-group">
     <label>دينار بحريني</label>
-    
-    <input type="number" id="bhd-sell"class="buy" placeholder="سعر البيع">
-    <input type="number" id="bhd-buy"class="sell" placeholder="سعر الشراء">
+    <input type="number" id="bhd-sell" class="buy" placeholder="سعر البيع">
+    <input type="number" id="bhd-buy" class="sell" placeholder="سعر الشراء">
   </div>
 
   <div class="currency-group">
     <label>ريال قطري</label>
-    
-    <input type="number" id="qar-sell"class="buy" placeholder="سعر البيع">
-    <input type="number" id="qar-buy"class="sell" placeholder="سعر الشراء">
+    <input type="number" id="qar-sell" class="buy" placeholder="سعر البيع">
+    <input type="number" id="qar-buy" class="sell" placeholder="سعر الشراء">
   </div>
 
   <button id="saveBtn">حفظ البيانات</button>
@@ -139,6 +128,18 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
+    // 🟡 تحميل القيم من localStorage عند فتح الصفحة
+    const savedRates = JSON.parse(localStorage.getItem('currencyRates') || '{}');
+
+    const fields = ['sar', 'usd', 'omr', 'egp', 'kwd', 'bhd', 'qar'];
+    fields.forEach(code => {
+      if (savedRates[code]) {
+        document.getElementById(`${code}-buy`).value = savedRates[code].buy || '';
+        document.getElementById(`${code}-sell`).value = savedRates[code].sell || '';
+      }
+    });
+
+    // 🟢 عند الضغط على زر الحفظ
     document.getElementById('saveBtn').addEventListener('click', () => {
       const rates = {
         sar: { buy: +document.getElementById('sar-buy').value, sell: +document.getElementById('sar-sell').value },
@@ -151,9 +152,13 @@
         updatedAt: new Date().toISOString()
       };
 
+      // حفظ في Firebase
       set(ref(db, 'rates/'), rates)
         .then(() => alert('✅ تم حفظ البيانات بنجاح'))
         .catch((error) => alert('❌ حدث خطأ: ' + error.message));
+
+      // حفظ في localStorage
+      localStorage.setItem('currencyRates', JSON.stringify(rates));
     });
   </script>
 
