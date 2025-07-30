@@ -1,148 +1,134 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>صفحة المطور - إدخال الأسعار</title>
+  <meta charset="UTF-8">
+  <title> تحديث أسعار الصرف في حضرموت</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
       padding: 20px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: #f0f0f0;
       text-align: center;
+    }
+    .currency-group {
+      margin-bottom: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px #ccc;
+      
     }
     label {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 5px;
       font-weight: bold;
-      font-size: 150%;
+      font-size: 120%;
     }
-    input[type="number"] {
-      width: calc(100% - 22px);
-      padding: 10px;
-      margin-bottom: 20px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
+    input {
+      width: 20%;
+      padding: 8px;
+      margin: 5px 1%;
       text-align: center;
-      font-weight: bold;
     }
     button {
-      background-color: #007bff;
+      padding: 10px 20px;
+      background: #28a745;
       color: white;
-      padding: 12px 20px;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
       cursor: pointer;
-      font-size: 20px;
-      width: 100%;
-      font-weight: bolder;
     }
     button:hover {
-      background-color: #0056b3;
+      background: #218838;
     }
-    #update-time {
-      background-color: #d1ecf1;
-      color: #0c5460;
-      padding: 10px;
-      border: 1px solid #bee5eb;
-      border-radius: 5px;
-      margin-bottom: 15px;
-      font-weight: bold;
+    h1
+    {
+        color: blue;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <div id="update-time">وقت الإدخال: جاري التحميل...</div>
+  <h1>تحديث أسعار الصرف في حضرموت</h1>
 
-  <h1>إدخال أسعار الصرف</h1>
+  <div class="currency-group">
+    <label>ريال سعودي</label>
+    <input type="number" id="sar-buy" placeholder="سعر الشراء">
+    <input type="number" id="sar-sell" placeholder="سعر البيع">
+  </div>
 
-  <label for="sar">ريال سعودي</label>
-  <input type="number" id="sar" placeholder="سعر الريال السعودي">
+  <div class="currency-group">
+    <label>دولار أمريكي</label>
+    <input type="number" id="usd-buy" placeholder="سعر الشراء">
+    <input type="number" id="usd-sell" placeholder="سعر البيع">
+  </div>
 
-  <label for="usd">دولار أمريكي</label>
-  <input type="number" id="usd" placeholder="سعر الدولار الأمريكي">
+  <div class="currency-group">
+    <label>ريال عماني</label>
+    <input type="number" id="omr-buy" placeholder="سعر الشراء">
+    <input type="number" id="omr-sell" placeholder="سعر البيع">
+  </div>
 
-  <label for="omr">ريال عماني</label>
-  <input type="number" id="omr" placeholder="سعر الريال العماني">
+  <div class="currency-group">
+    <label>جنيه مصري</label>
+    <input type="number" id="egp-buy" placeholder="سعر الشراء">
+    <input type="number" id="egp-sell" placeholder="سعر البيع">
+  </div>
 
-  <label for="egp">جنيه مصري</label>
-  <input type="number" id="egp" placeholder="سعر الجنيه المصري">
+  <div class="currency-group">
+    <label>دينار كويتي</label>
+    <input type="number" id="kwd-buy" placeholder="سعر الشراء">
+    <input type="number" id="kwd-sell" placeholder="سعر البيع">
+  </div>
 
-  <label for="kwd">دينار كويتي</label>
-  <input type="number" id="kwd" placeholder="سعر الدينار الكويتي">
+  <div class="currency-group">
+    <label>دينار بحريني</label>
+    <input type="number" id="bhd-buy" placeholder="سعر الشراء">
+    <input type="number" id="bhd-sell" placeholder="سعر البيع">
+  </div>
 
-  <label for="bhd">دينار بحريني</label>
-  <input type="number" id="bhd" placeholder="سعر الدينار البحريني">
+  <div class="currency-group">
+    <label>ريال قطري</label>
+    <input type="number" id="qar-buy" placeholder="سعر الشراء">
+    <input type="number" id="qar-sell" placeholder="سعر البيع">
+  </div>
 
-  <label for="qar">ريال قطري</label>
-  <input type="number" id="qar" placeholder="سعر الريال القطري">
+  <button id="saveBtn">حفظ البيانات</button>
 
-  <button id="saveBtn">حفظ الأسعار</button>
-</div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
-<script>
-  // تحديث وقت الإدخال
-  const updateTimeDiv = document.getElementById('update-time');
-  const now = new Date();
-  updateTimeDiv.textContent = 'وقت الإدخال: ' + now.toLocaleString('ar-EG', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: true
-  });
-</script>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDQ9nB0j2kuNr7xvIIA_qFpxpN62QZTKjo",
-    authDomain: "rate-5fe74.firebaseapp.com",
-    databaseURL: "https://rate-5fe74-default-rtdb.firebaseio.com",
-    projectId: "rate-5fe74",
-    storageBucket: "rate-5fe74.appspot.com",
-    messagingSenderId: "663913162831",
-    appId: "1:663913162831:web:a8ecea5315d8828ce5623a"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  document.getElementById('saveBtn').addEventListener('click', () => {
-    const rates = {
-      sar: document.getElementById('sar').value,
-      usd: document.getElementById('usd').value,
-      omr: document.getElementById('omr').value,
-      egp: document.getElementById('egp').value,
-      kwd: document.getElementById('kwd').value,
-      bhd: document.getElementById('bhd').value,
-      qar: document.getElementById('qar').value,
-      updatedAt: new Date().toISOString()
+    const firebaseConfig = {
+      apiKey: "AIzaSyDQ9nB0j2kuNr7xvIIA_qFpxpN62QZTKjo",
+      authDomain: "rate-5fe74.firebaseapp.com",
+      databaseURL: "https://rate-5fe74-default-rtdb.firebaseio.com",
+      projectId: "rate-5fe74",
+      storageBucket: "rate-5fe74.appspot.com",
+      messagingSenderId: "663913162831",
+      appId: "1:663913162831:web:a8ecea5315d8828ce5623a"
     };
 
-    set(ref(db, 'rates/'), rates).then(() => {
-      alert('تم حفظ الأسعار بنجاح ✅');
-    }).catch((error) => {
-      alert('حدث خطأ أثناء الحفظ ❌: ' + error.message);
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      const rates = {
+        sar: { buy: +document.getElementById('sar-buy').value, sell: +document.getElementById('sar-sell').value },
+        usd: { buy: +document.getElementById('usd-buy').value, sell: +document.getElementById('usd-sell').value },
+        omr: { buy: +document.getElementById('omr-buy').value, sell: +document.getElementById('omr-sell').value },
+        egp: { buy: +document.getElementById('egp-buy').value, sell: +document.getElementById('egp-sell').value },
+        kwd: { buy: +document.getElementById('kwd-buy').value, sell: +document.getElementById('kwd-sell').value },
+        bhd: { buy: +document.getElementById('bhd-buy').value, sell: +document.getElementById('bhd-sell').value },
+        qar: { buy: +document.getElementById('qar-buy').value, sell: +document.getElementById('qar-sell').value },
+        updatedAt: new Date().toISOString()
+      };
+
+      set(ref(db, 'rates/'), rates)
+        .then(() => alert('✅ تم حفظ البيانات بنجاح'))
+        .catch((error) => alert('❌ حدث خطأ: ' + error.message));
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
